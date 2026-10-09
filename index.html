@@ -28,7 +28,7 @@ thead th{background:#eef2f8;font-size:13px}.scroll{overflow-x:auto}.route{displa
 <div class="card"><small>整条轨迹终点误差均值</small><strong>0.32 / 2.71 m</strong><small>K256 / Pointing+RVQ</small></div>
 <div class="card"><small>RVQ 训练可用帧占比</small><strong>98.4%</strong><small>量化质量门槛；非模型成功率</small></div></div>
 <section><h2>结论</h2><div class="callout">在这个同源样本的离线重建实验里，K256 的 0.5 秒单步、5 秒段和整条轨迹开环位置误差都更低。整条轨迹终点误差均值的 RVQ−K256 差值为 2.40 m；按场景重采样的 95% 区间为 [2.23, 2.56] m。</div>
-<p>Pointing+RVQ 提供 K256 没有的 Object / Affordance 指向标签和一次预测未来 10 个路点的表示。这些额外信息可能对视觉导航训练有用，但本实验不包含训练或模型推理，不能据此判断闭环导航成功率。RVQ 在 2.1% 的配对轨迹上取得更低终点误差，动图中也保留了这类例子。</p>
+<p>Pointing+RVQ 提供 K256 没有的 Object / Affordance 指向标签和一次预测未来 10 个路点的表示。图中的轨迹只由 3 个 RVQ 动作 token 解码；两个 Pointing token 不参与坐标重建。这些额外信息可能对视觉导航训练有用，但本实验不包含训练或模型推理，不能据此判断闭环导航成功率。RVQ 在 2.1% 的配对轨迹上取得更低终点误差，动图中也保留了这类例子。</p>
 <div class="warning">两份上传日志标题写作 “HM3D-V1”；其共同根目录实际绑定的清单是 <code>hm3d_qc_retained_k256_export_v1</code>，属于 HM3D-all V2 发版数据。这里的 V1 是导出格式版本，不把它当作另一套 HM3D 轨迹。</div></section>
 <section><h2>误差实验</h2><div class="figure-grid"><figure><img src="assets/local-error.png" alt="K256 与 RVQ 单步和局部路点误差柱状图"><figcaption>同一时间点的局部位置误差。柱上为米数，P95 是样本第 95 百分位。</figcaption></figure>
 <figure><img src="assets/open-loop.png" alt="K256 与 RVQ 五秒和整条轨迹开环误差柱状图"><figcaption>按各编码逐步积分，不在段内使用 GT 校正。</figcaption></figure></div>
