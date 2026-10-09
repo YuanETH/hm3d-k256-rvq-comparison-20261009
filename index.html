@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="HM3D 同源轨迹 K256 与 Pointing+RVQ 编码量化误差、开环漂移和俯视动图评估。">
+<title>HM3D K256 与 Pointing+RVQ 编码对照</title>
+<style>
+:root{--ink:#172033;--muted:#59667a;--line:#e3e9f0;--paper:#fff;--bg:#f4f7fb;--k:#e25d4b;--r:#1676be}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Noto Sans CJK SC",sans-serif}
+main{max-width:1080px;margin:auto;padding:0 22px 64px}header{background:#172033;color:#fff;padding:58px 0 46px}
+header .inner{max-width:1080px;padding:0 22px;margin:auto}h1{font-size:clamp(30px,4vw,48px);line-height:1.15;margin:12px 0}
+h2{font-size:26px;margin:0 0 15px}h3{font-size:18px;margin:0}p{margin:8px 0 14px}small,.muted{color:var(--muted)}
+header p{color:#d8e0ec;max-width:850px}.eyebrow{color:#9fd8ff;letter-spacing:.12em;font-size:13px;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}.card,section,.route{background:var(--paper);border:1px solid var(--line);border-radius:14px}
+.card{padding:18px}.card strong{font-size:27px;display:block;line-height:1.2}section{padding:26px;margin:20px 0}
+.callout{border-left:5px solid var(--r);background:#edf6fc;padding:16px 20px;border-radius:8px;margin:18px 0}
+.warning{border-left:5px solid #d9a133;background:#fff8e8;padding:16px 20px;border-radius:8px;margin:18px 0}
+.figure-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}figure{margin:0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+figure img{width:100%;display:block}figcaption{font-size:13px;color:var(--muted);padding:8px 12px}table{border-collapse:collapse;width:100%;min-width:720px}
+th,td{border-bottom:1px solid var(--line);text-align:right;padding:10px 9px;font-variant-numeric:tabular-nums}th:first-child,td:last-child{text-align:left}
+thead th{background:#eef2f8;font-size:13px}.scroll{overflow-x:auto}.route{display:grid;grid-template-columns:1fr 1.3fr;gap:10px;align-items:center;padding:14px;margin:12px 0}
+.route img{width:100%;border:1px solid var(--line);border-radius:8px}a{color:#075eaa}ul{padding-left:22px}li{margin:6px 0}
+.tag{display:inline-block;background:#edf6fc;color:#164d70;border-radius:20px;padding:3px 10px;font-size:12px;font-weight:700;margin-right:6px}
+@media(max-width:760px){.cards,.figure-grid,.route{grid-template-columns:1fr}section{padding:18px}}
+</style></head><body>
+<header><div class="inner"><div class="eyebrow">PAIRED ENCODING EVALUATION · 2026-10-09</div>
+<h1>HM3D K256 与 Pointing+RVQ</h1><p>同一批 GT 轨迹上的编码重建、开环漂移和俯视轨迹对照。两种编码按相同的 episode、帧和时间戳配对。</p>
+<span class="tag">离线量化评估</span><span class="tag">公开方法与结果</span></div></header><main>
+<div class="cards"><div class="card"><small>同源轨迹</small><strong>8,600</strong><small>60 个场景 · 401,872 帧</small></div>
+<div class="card"><small>整条轨迹终点误差均值</small><strong>0.32 / 2.71 m</strong><small>K256 / Pointing+RVQ</small></div>
+<div class="card"><small>RVQ 训练可用帧占比</small><strong>98.4%</strong><small>量化质量门槛；非模型成功率</small></div></div>
+<section><h2>结论</h2><div class="callout">在这个同源样本的离线重建实验里，K256 的 0.5 秒单步、5 秒段和整条轨迹开环位置误差都更低。整条轨迹终点误差均值的 RVQ−K256 差值为 2.40 m；按场景重采样的 95% 区间为 [2.23, 2.56] m。</div>
+<p>Pointing+RVQ 提供 K256 没有的 Object / Affordance 指向标签和一次预测未来 10 个路点的表示。这些额外信息可能对视觉导航训练有用，但本实验不包含训练或模型推理，不能据此判断闭环导航成功率。RVQ 在 2.1% 的配对轨迹上取得更低终点误差，动图中也保留了这类例子。</p>
+<div class="warning">两份上传日志标题写作 “HM3D-V1”；其共同根目录实际绑定的清单是 <code>hm3d_qc_retained_k256_export_v1</code>，属于 HM3D-all V2 发版数据。这里的 V1 是导出格式版本，不把它当作另一套 HM3D 轨迹。</div></section>
+<section><h2>误差实验</h2><div class="figure-grid"><figure><img src="assets/local-error.png" alt="K256 与 RVQ 单步和局部路点误差柱状图"><figcaption>同一时间点的局部位置误差。柱上为米数，P95 是样本第 95 百分位。</figcaption></figure>
+<figure><img src="assets/open-loop.png" alt="K256 与 RVQ 五秒和整条轨迹开环误差柱状图"><figcaption>按各编码逐步积分，不在段内使用 GT 校正。</figcaption></figure></div>
+<div class="scroll"><table><thead><tr><th>指标</th><th>配对数</th><th>K256 均值 m</th><th>RVQ 均值 m</th><th>K256 P95 m</th><th>RVQ P95 m</th><th>定义</th></tr></thead><tbody><tr><th>单步位置误差 · 0.5 秒</th><td>393,272</td><td>0.012</td><td>0.033</td><td>0.039</td><td>0.097</td><td>同一 GT 帧；已覆盖的 RVQ 帧</td></tr>
+<tr><th>局部 10 路点 ADE</th><td>393,272</td><td>0.024</td><td>0.042</td><td>0.066</td><td>0.085</td><td>按 RVQ 实际时间戳；忽略终点填充</td></tr>
+<tr><th>5 秒段终点误差</th><td>35,401</td><td>0.058</td><td>0.353</td><td>0.159</td><td>1.010</td><td>每段从 GT 起点重置</td></tr>
+<tr><th>整条轨迹终点误差</th><td>8,600</td><td>0.315</td><td>2.713</td><td>0.901</td><td>7.454</td><td>仅两者可完整计算的相同轨迹</td></tr></tbody></table></div>
+<p class="muted">整条轨迹统计使用 8,600 条相同轨迹；0.5 秒 RVQ 路点可插值覆盖率 100.00%。方向角和进一步分层数据见 <a href="summary.json">机器可读结果</a>。</p></section>
+<section><h2>长度分层与 RVQ 层数</h2><div class="figure-grid"><figure><img src="assets/length-strata.png" alt="不同 GT 路径长度下的终点误差柱状图"><figcaption>同一配对样本按 GT 水平路径长度分层，柱为终点误差均值。</figcaption></figure>
+<figure><img src="assets/rvq-levels.png" alt="RVQ 三层前缀路点误差柱状图"><figcaption>RVQ 自身的 L0、L0+L1、L0+L1+L2 重建，展示残差层的作用。</figcaption></figure></div><p class="muted">路径长度分层样本数：&lt;10 m 为 5,229 条，10–25 m 为 3,284 条，≥25 m 为 87 条；长路径层样本较少。</p></section>
+<section><h2>同图俯视轨迹动图</h2><p>黑色为 GT，红色为 K256，蓝色为 RVQ；浅灰线给出完整 GT 路径，空心圆标出 GT 终点。三条轨迹从同一真实起点出发，使用相同世界坐标尺度。背景是坐标网格，不表示 NavMesh 墙体。</p><article class="route"><div><h3>轨迹 1</h3><p>GT 长度 8.1 m · 43 帧 · 终点误差 K256 0.24 m / RVQ 2.74 m</p></div><img loading="lazy" src="assets/route-01.gif" alt="轨迹 1 的 GT、K256、RVQ 叠加俯视动图"></article>
+<article class="route"><div><h3>轨迹 2</h3><p>GT 长度 27.3 m · 112 帧 · 终点误差 K256 0.29 m / RVQ 6.88 m</p></div><img loading="lazy" src="assets/route-02.gif" alt="轨迹 2 的 GT、K256、RVQ 叠加俯视动图"></article>
+<article class="route"><div><h3>轨迹 3</h3><p>GT 长度 21.8 m · 138 帧 · 终点误差 K256 1.06 m / RVQ 4.35 m</p></div><img loading="lazy" src="assets/route-03.gif" alt="轨迹 3 的 GT、K256、RVQ 叠加俯视动图"></article>
+<article class="route"><div><h3>轨迹 4</h3><p>GT 长度 11.6 m · 42 帧 · 终点误差 K256 0.73 m / RVQ 0.15 m</p></div><img loading="lazy" src="assets/route-04.gif" alt="轨迹 4 的 GT、K256、RVQ 叠加俯视动图"></article>
+<article class="route"><div><h3>轨迹 5</h3><p>GT 长度 26.1 m · 119 帧 · 终点误差 K256 0.61 m / RVQ 11.87 m</p></div><img loading="lazy" src="assets/route-05.gif" alt="轨迹 5 的 GT、K256、RVQ 叠加俯视动图"></article></section>
+<section><h2>编码取舍</h2><div class="scroll"><table><thead><tr><th>维度</th><th>K256</th><th>Pointing+RVQ</th></tr></thead><tbody>
+<tr><th>动作表示</th><td>每 0.5 秒一个机体增量 token；末帧 STOP=0</td><td>每帧 3 个 RVQ token 解出 10 个局部路点；另有 Object / Affordance 2 个 token</td></tr>
+<tr><th>优点</th><td>动作序列短，直接适配 2 Hz 控制；本次量化漂移较小</td><td>多步局部几何和语义指向更丰富；3 层残差提高路点重建质量</td></tr>
+<tr><th>代价</th><td>单 token 无显式目标指向和多步路点</td><td>5 token/帧、时间间隔不固定；需处理 loss mask、点不可见和终点哨兵</td></tr>
+</tbody></table></div><p>以发版的 401,872 个采样帧计算，K256 每帧 1 个动作 token，Pointing+RVQ 每帧 5 个 token。这是序列预算对比，RVQ 同时编码了更多任务信息，因此不是压缩率的同义词。Object 投影可见率 24.8%，Affordance 普通可投影点比例 44.8%；其余状态包括遮挡、转向、停止等，并非统一视为错误。</p></section>
+<section><h2>实验方法与边界</h2><ol>
+<li>从发版所用 900 个场景中，按固定 SHA-256 种子选择 60 个场景，再各选一个已发布的生成 batch；每个 batch 的 SHA 收据、轨迹数和帧数必须通过校验。依据视频 SHA、episode ID、GT 位姿和帧数连接 K256 shard 与 RVQ 标注。</li>
+<li>从 K256 码本解码 1–256 的前进、左移、逆时针增量；从 RVQ 保存的官方解码结果读取 10 个路点，并用发版固定的官方码本独立复解 12 个场景的 768 帧，逐值一致，见 <a href="decoder_spotcheck.json">解码抽查</a>。RVQ 路点有实际相对时间戳：在 0.5 秒处插值用于单步与整条轨迹积分；局部 ADE 在各路点的真实时间戳与同一 GT 对比，忽略尾部重复填充。</li>
+<li>5 秒实验每 10 个 2 Hz 动作从 GT 位姿重新开始；整条轨迹实验仅在起点对齐，之后两种编码都逐帧开环积分。每帧编码本身来自 GT 轨迹，实验只衡量量化误差累积，不包含感知误差、网络预测误差、NavMesh 碰撞和控制反馈。</li>
+<li>采样与码本的哈希、每项指标的样本数、方向误差和长度分层保存在 <a href="summary.json">summary.json</a>。均值差的区间按场景为单位 bootstrap 2,000 次；相邻帧不被当成独立场景。</li>
+</ol><p>上传的 K256 发版日志给出的全保留集 P95 数值使用原报告流程；本页数字来自新的配对场景样本和统一时间轴，不能把两组数值直接拼成一组试验。</p>
+<p>数据来源：<a href="https://yuaneth.github.io/vln-qc-hm3d-all-v2-k256-20261002/">HM3D K256 原发版页</a> · <a href="https://huggingface.co/LightOriginsHQ/LightNav-0/tree/59ec49db1f857380213b51975aa88089b08088ce/action_tokenizer">固定版本 RVQ 码本</a> · <a href="https://github.com/lightorigins/LightNav-0">LightNav-0 官方仓库</a>。</p></section>
+</main></body></html>

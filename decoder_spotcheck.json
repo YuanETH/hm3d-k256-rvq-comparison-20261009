@@ -1,0 +1,7 @@
+{
+  "scenes": 12,
+  "checked_frames": 768,
+  "max_decoder_abs_difference": 0.0,
+  "max_ade_difference_m": 3.724906855184784e-08,
+  "status": "passed"
+}
