@@ -44,6 +44,21 @@ thead th{background:#eef2f8;font-size:13px}.scroll{overflow-x:auto}.route{displa
 <article class="route"><div><h3>轨迹 3</h3><p>GT 长度 21.8 m · 138 帧 · 终点误差 K256 1.06 m / RVQ 4.35 m</p></div><img loading="lazy" src="assets/route-03.gif" alt="轨迹 3 的 GT、K256、RVQ 叠加俯视动图"></article>
 <article class="route"><div><h3>轨迹 4</h3><p>GT 长度 11.6 m · 42 帧 · 终点误差 K256 0.73 m / RVQ 0.15 m</p></div><img loading="lazy" src="assets/route-04.gif" alt="轨迹 4 的 GT、K256、RVQ 叠加俯视动图"></article>
 <article class="route"><div><h3>轨迹 5</h3><p>GT 长度 26.1 m · 119 帧 · 终点误差 K256 0.61 m / RVQ 11.87 m</p></div><img loading="lazy" src="assets/route-05.gif" alt="轨迹 5 的 GT、K256、RVQ 叠加俯视动图"></article></section>
+<section><h2>多路点执行与轨迹流畅度</h2>
+<p>在同一批 8,600 条轨迹上，把 K256 每 0.5 秒动作、RVQ 每帧重新取 0.5 秒动作，以及 RVQ 一次最多执行 2 秒或 4 秒的路点序列，全部采样到同一个 2 Hz 时间网格。后两种模式在有效路点时间不足时提前重规划，实际平均每次分别执行 1.92 秒和 3.02 秒。</p>
+<div class="callout">多点轨迹自动更流畅的猜想在本次直接回放中没有得到支持：最多执行 2 秒时，RVQ 的平均速度 jerk 为 0.747 m/s³，K256 为 0.504；平均转向角加速度为 18.53 与 12.28 °/s²。较长的 RVQ 片段减少了它自身的开环终点漂移，但没有消除速度和转向变化。</div>
+<div class="figure-grid"><figure><img src="assets/smoothness.png" alt="GT、K256 与三种 RVQ 执行方式的速度 jerk 和转向角加速度柱状图"><figcaption>速度 jerk 和转向角加速度越低，离散轨迹的速度及转向变化越平缓。GT 是参考，不代表可实现的机器人控制。</figcaption></figure>
+<figure><img src="assets/inference-tradeoff.png" alt="各执行方式的推理请求数和整轨终点误差柱状图"><figcaption>请求数是离线调度计数；终点误差是同一 GT 起点出发后的开环重建误差。</figcaption></figure></div>
+<div class="scroll"><table><thead><tr><th>路径</th><th>平均速度 jerk<br>m/s³</th><th>平均转向角加速度<br>°/s²</th><th>速度 jerk 相对 GT 偏差<br>m/s³</th><th>整轨终点误差均值<br>m</th><th>模拟推理请求数</th></tr></thead><tbody><tr><th>GT</th><td>0.467</td><td>12.13</td><td>0.000</td><td>0.000</td><td>—</td></tr>
+<tr><th>K256</th><td>0.504</td><td>12.28</td><td>0.169</td><td>0.315</td><td>393,272</td></tr>
+<tr><th>RVQ 每 0.5 秒重规划</th><td>0.665</td><td>17.40</td><td>0.549</td><td>2.713</td><td>393,272</td></tr>
+<tr><th>RVQ 最多执行 2 秒</th><td>0.747</td><td>18.53</td><td>0.697</td><td>1.547</td><td>102,609</td></tr>
+<tr><th>RVQ 最多执行 4 秒</th><td>0.760</td><td>18.07</td><td>0.729</td><td>0.692</td><td>65,152</td></tr></tbody></table></div>
+<p>指标先对每条轨迹求相邻 2 Hz 速度的加速度变化、转向角速度变化，再对轨迹等权平均。RVQ 最多执行 2 秒相对 K256 的平均速度 jerk 差值，按场景 bootstrap 的 95% 区间为 [0.237, 0.249] m/s³；转向角加速度差值区间为 [6.05, 6.44] °/s²。完整分布与定义见 <a href="smoothness.json">流畅度结果</a>。</p>
+<div class="warning">这是直接插值并拼接解码路点的离线路径几何实验，每次使用 GT 对应的发版 token，尚未运行视觉模型、MPC 或机器人控制器。2 Hz 指标无法判断采样间的微小抖动；低 jerk 也需要结合 GT 偏差和终点误差理解。</div></section>
+<section><h2>推理次数与任务用时</h2><p>这批轨迹含 393,272 个 0.5 秒动作。K256 逐步推理需要 393,272 次请求；RVQ 最多执行 2 秒需要 102,609 次（26.1%），最多执行 4 秒需要 65,152 次（16.6%）。按官方五 token 输出计，二者生成 token 总量分别为 K256 的 1.30 倍和 0.83 倍。</p>
+<p>如果把每次完整模型请求耗时分别记为 L<sub>K</sub> 与 L<sub>R</sub>，2 秒策略只有在 L<sub>R</sub>/L<sub>K</sub> &lt; 3.83 时才减少累计模型用时；4 秒策略的门槛为 6.04。2 秒方案虽然减少请求，生成的 token 总量仍比 K256 多 30.5%。模型结构、图像输入、五 token 解码以及机器人是否能边行进边推理，都会改变实际任务完成时间。本页没有实测模型或机器人墙钟耗时，因而只报告请求数与临界条件。</p>
+<p>官方 <a href="https://github.com/lightorigins/LightNav-0/blob/main/README.md">LightNav-0 说明</a>把 10 个 SE(2) 路点交给低层控制器；本页的 2 Hz 直接插值回放不代表它的真实 MPC 跟踪质量。</p></section>
 <section><h2>编码取舍</h2><div class="scroll"><table><thead><tr><th>维度</th><th>K256</th><th>Pointing+RVQ</th></tr></thead><tbody>
 <tr><th>动作表示</th><td>每 0.5 秒一个机体增量 token；末帧 STOP=0</td><td>每帧 3 个 RVQ token 解出 10 个局部路点；另有 Object / Affordance 2 个 token</td></tr>
 <tr><th>优点</th><td>动作序列短，直接适配 2 Hz 控制；本次量化漂移较小</td><td>多步局部几何和语义指向更丰富；3 层残差提高路点重建质量</td></tr>
