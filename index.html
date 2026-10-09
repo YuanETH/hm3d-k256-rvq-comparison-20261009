@@ -53,7 +53,7 @@ thead th{background:#eef2f8;font-size:13px}.scroll{overflow-x:auto}.route{displa
 <li>从发版所用 900 个场景中，按固定 SHA-256 种子选择 60 个场景，再各选一个已发布的生成 batch；每个 batch 的 SHA 收据、轨迹数和帧数必须通过校验。依据视频 SHA、episode ID、GT 位姿和帧数连接 K256 shard 与 RVQ 标注。</li>
 <li>从 K256 码本解码 1–256 的前进、左移、逆时针增量；从 RVQ 保存的官方解码结果读取 10 个路点，并用发版固定的官方码本独立复解 12 个场景的 768 帧，逐值一致，见 <a href="decoder_spotcheck.json">解码抽查</a>。RVQ 路点有实际相对时间戳：在 0.5 秒处插值用于单步与整条轨迹积分；局部 ADE 在各路点的真实时间戳与同一 GT 对比，忽略尾部重复填充。</li>
 <li>5 秒实验每 10 个 2 Hz 动作从 GT 位姿重新开始；整条轨迹实验仅在起点对齐，之后两种编码都逐帧开环积分。每帧编码本身来自 GT 轨迹，实验只衡量量化误差累积，不包含感知误差、网络预测误差、NavMesh 碰撞和控制反馈。</li>
-<li>采样与码本的哈希、每项指标的样本数、方向误差和长度分层保存在 <a href="summary.json">summary.json</a>。均值差的区间按场景为单位 bootstrap 2,000 次；相邻帧不被当成独立场景。</li>
+<li>采样与码本的哈希、每项指标的样本数、方向误差和长度分层保存在 <a href="summary.json">summary.json</a>。均值差的区间按场景为单位 bootstrap 2,000 次；相邻帧不被当成独立场景。每场景只取一个 batch，这是场景覆盖型样本，不等于 779,860 条轨迹的总体统计；区间也不包含编码训练与场景选择的系统偏差。</li>
 </ol><p>上传的 K256 发版日志给出的全保留集 P95 数值使用原报告流程；本页数字来自新的配对场景样本和统一时间轴，不能把两组数值直接拼成一组试验。</p>
 <p>数据来源：<a href="https://yuaneth.github.io/vln-qc-hm3d-all-v2-k256-20261002/">HM3D K256 原发版页</a> · <a href="https://huggingface.co/LightOriginsHQ/LightNav-0/tree/59ec49db1f857380213b51975aa88089b08088ce/action_tokenizer">固定版本 RVQ 码本</a> · <a href="https://github.com/lightorigins/LightNav-0">LightNav-0 官方仓库</a>。</p></section>
 </main></body></html>

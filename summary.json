@@ -235,5 +235,6 @@
   "scene_bootstrap_full_endpoint_rvq_minus_k256_m_95ci": [
     2.233228331251382,
     2.5557377211050265
-  ]
+  ],
+  "generation_manifest_sha256": "e337c7871b16365df9839b6a595a16b79822faa1ccb7c916d23041e36424231b"
 }
