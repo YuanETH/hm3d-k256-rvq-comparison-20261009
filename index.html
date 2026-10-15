@@ -21,7 +21,7 @@ thead th{background:#eef2f8;font-size:13px}.scroll{overflow-x:auto}.route{displa
 .tag{display:inline-block;background:#edf6fc;color:#164d70;border-radius:20px;padding:3px 10px;font-size:12px;font-weight:700;margin-right:6px}
 @media(max-width:760px){.cards,.figure-grid,.route{grid-template-columns:1fr}section{padding:18px}}
 </style></head><body>
-<header><div class="inner"><div class="eyebrow">PAIRED ENCODING EVALUATION · 2026-10-09</div>
+<header><div class="inner"><div class="eyebrow">PAIRED ENCODING EVALUATION · 2026-10-09 · 更新 2026-10-15</div>
 <h1>HM3D K256 与 Pointing+RVQ</h1><p>同一批 GT 轨迹上的编码重建、开环漂移和俯视轨迹对照。两种编码按相同的 episode、帧和时间戳配对。</p>
 <span class="tag">离线量化评估</span><span class="tag">公开方法与结果</span></div></header><main>
 <div class="cards"><div class="card"><small>同源轨迹</small><strong>8,600</strong><small>60 个场景 · 401,872 帧</small></div>
@@ -40,11 +40,20 @@ thead th{background:#eef2f8;font-size:13px}.scroll{overflow-x:auto}.route{displa
 <p class="muted">整条轨迹统计使用 8,600 条相同轨迹；0.5 秒 RVQ 路点可插值覆盖率 100.00%。方向角和进一步分层数据见 <a href="summary.json">机器可读结果</a>。</p></section>
 <section><h2>长度分层与 RVQ 层数</h2><div class="figure-grid"><figure><img src="assets/length-strata.png" alt="不同 GT 路径长度下的终点误差柱状图"><figcaption>同一配对样本按 GT 水平路径长度分层，柱为终点误差均值。</figcaption></figure>
 <figure><img src="assets/rvq-levels.png" alt="RVQ 三层前缀路点误差柱状图"><figcaption>RVQ 自身的 L0、L0+L1、L0+L1+L2 重建，展示残差层的作用。</figcaption></figure></div><p class="muted">路径长度分层样本数：&lt;10 m 为 5,229 条，10–25 m 为 3,284 条，≥25 m 为 87 条；长路径层样本较少。</p></section>
-<section><h2>同图俯视轨迹动图</h2><p>黑色为 GT，红色为 K256，蓝色为 RVQ；浅灰线给出完整 GT 路径，空心圆标出 GT 终点。三条轨迹从同一真实起点出发，使用相同世界坐标尺度。下方路点数指最终曲线上绘制的世界坐标点，含共同起点；K256 的 STOP 不增加路点。RVQ 每个非终止帧原有 10 个局部路点，本动图在 0.5 秒处插值得到一个移动点后逐帧积分，并未把每帧的 10 个点全部画进曲线。背景是坐标网格，不表示 NavMesh 墙体。</p><article class="route"><div><h3>轨迹 1</h3><p>GT 长度 8.1 m · 43 帧 · 终点误差 K256 0.24 m / RVQ 2.74 m</p><p>绘制路点：K256 43 个 · RVQ 43 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-01.gif" alt="轨迹 1 的 GT、K256、RVQ 叠加俯视动图"></article>
-<article class="route"><div><h3>轨迹 2</h3><p>GT 长度 27.3 m · 112 帧 · 终点误差 K256 0.29 m / RVQ 6.88 m</p><p>绘制路点：K256 112 个 · RVQ 112 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-02.gif" alt="轨迹 2 的 GT、K256、RVQ 叠加俯视动图"></article>
-<article class="route"><div><h3>轨迹 3</h3><p>GT 长度 21.8 m · 138 帧 · 终点误差 K256 1.06 m / RVQ 4.35 m</p><p>绘制路点：K256 138 个 · RVQ 138 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-03.gif" alt="轨迹 3 的 GT、K256、RVQ 叠加俯视动图"></article>
-<article class="route"><div><h3>轨迹 4</h3><p>GT 长度 11.6 m · 42 帧 · 终点误差 K256 0.73 m / RVQ 0.15 m</p><p>绘制路点：K256 42 个 · RVQ 42 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-04.gif" alt="轨迹 4 的 GT、K256、RVQ 叠加俯视动图"></article>
-<article class="route"><div><h3>轨迹 5</h3><p>GT 长度 26.1 m · 119 帧 · 终点误差 K256 0.61 m / RVQ 11.87 m</p><p>绘制路点：K256 119 个 · RVQ 119 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-05.gif" alt="轨迹 5 的 GT、K256、RVQ 叠加俯视动图"></article></section>
+<section><h2>同图俯视轨迹动图</h2>
+<p>此前的 5 条演示轨迹中有 4 条属于 K256 终点误差更小的案例。现将整条轨迹的终点误差差值 Δ＝RVQ−K256 按 ±0.2 m 分组，每组展示 2 条；差值只决定分类，卡片同时给出整轨 ADE，以免终点偶然接近 GT 掩盖途中偏差。</p>
+<div class="scroll"><table><thead><tr><th>类别</th><th>轨迹数</th><th>占 8,600 条比例</th></tr></thead><tbody><tr><th>RVQ 占优</th><td>57</td><td>0.66%</td></tr>
+<tr><th>接近</th><td>437</td><td>5.08%</td></tr>
+<tr><th>K256 占优</th><td>8,106</td><td>94.26%</td></tr></tbody></table></div>
+<p class="muted">RVQ 占优表示 Δ &lt; −0.2 m；接近表示 |Δ| ≤ 0.2 m；K256 占优表示 Δ &gt; 0.2 m。0.2 m 是便于观察的展示阈值，并非统计显著性界限。若只看差值符号，RVQ 严格胜 182 条（2.12%）。三组数量来自全部配对样本；动图每组等量展示，不能用动图比例估计总体表现。</p>
+<p class="muted">在 RVQ 终点优势超过 0.2 m 的 57 条中，有 30 条的整轨 ADE 也更低，其余 27 条仅终点占优。前两张动图各展示一种，说明终点更准不一定代表途中也更贴近 GT。</p>
+<p class="muted">每组从 GT 路程 5–10 m 和 10–25 m 各选一条，限制至 140 帧以内，并优先选终点差值接近对应候选中位数且来自不同场景的轨迹。RVQ 占优组再区分整轨 ADE 是否同时占优。候选池保留全部 RVQ 严格胜例，其余按固定哈希抽样约 1/15。下面的案例用于观察不同误差形态，不代替全样本统计。</p>
+<p>黑色为 GT，红色为 K256，蓝色为 RVQ；浅灰线给出完整 GT 路径，空心圆标出 GT 终点。三条轨迹从同一真实起点出发，使用相同世界坐标尺度。下方路点数指最终曲线上绘制的世界坐标点，含共同起点；K256 的 STOP 不增加路点。RVQ 每个非终止帧原有 10 个局部路点，本动图在 0.5 秒处插值得到一个移动点后逐帧积分，并未把每帧的 10 个点全部画进曲线。长轨迹的播放画面最多抽取 70 帧，但最终画面包含全部路点。背景是坐标网格，不表示 NavMesh 墙体。</p><article class="route"><div><span class="tag">RVQ 占优</span><h3>轨迹 1 · GT 长度 6.1 m</h3><p>26 帧 · 终点误差 K256 0.46 m / RVQ 0.13 m</p><p>整轨 ADE：K256 0.21 m · RVQ 0.09 m</p><p class="muted">整轨 ADE 更低：RVQ；上方类别只按终点误差定义。</p><p>绘制路点：K256 26 个 · RVQ 26 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-01.gif" alt="轨迹 1 的 GT、K256、RVQ 叠加俯视动图"></article>
+<article class="route"><div><span class="tag">RVQ 占优</span><h3>轨迹 2 · GT 长度 13.6 m</h3><p>64 帧 · 终点误差 K256 0.68 m / RVQ 0.29 m</p><p>整轨 ADE：K256 0.29 m · RVQ 0.44 m</p><p class="muted">整轨 ADE 更低：K256；上方类别只按终点误差定义。</p><p>绘制路点：K256 64 个 · RVQ 64 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-02.gif" alt="轨迹 2 的 GT、K256、RVQ 叠加俯视动图"></article>
+<article class="route"><div><span class="tag">接近</span><h3>轨迹 3 · GT 长度 6.4 m</h3><p>35 帧 · 终点误差 K256 0.30 m / RVQ 0.25 m</p><p>整轨 ADE：K256 0.12 m · RVQ 0.13 m</p><p class="muted">整轨 ADE 更低：K256；上方类别只按终点误差定义。</p><p>绘制路点：K256 35 个 · RVQ 35 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-03.gif" alt="轨迹 3 的 GT、K256、RVQ 叠加俯视动图"></article>
+<article class="route"><div><span class="tag">接近</span><h3>轨迹 4 · GT 长度 13.2 m</h3><p>55 帧 · 终点误差 K256 0.92 m / RVQ 0.83 m</p><p>整轨 ADE：K256 0.46 m · RVQ 0.43 m</p><p class="muted">整轨 ADE 更低：RVQ；上方类别只按终点误差定义。</p><p>绘制路点：K256 55 个 · RVQ 55 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-04.gif" alt="轨迹 4 的 GT、K256、RVQ 叠加俯视动图"></article>
+<article class="route"><div><span class="tag">K256 占优</span><h3>轨迹 5 · GT 长度 7.7 m</h3><p>29 帧 · 终点误差 K256 0.06 m / RVQ 1.69 m</p><p>整轨 ADE：K256 0.04 m · RVQ 0.82 m</p><p class="muted">整轨 ADE 更低：K256；上方类别只按终点误差定义。</p><p>绘制路点：K256 29 个 · RVQ 29 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-05.gif" alt="轨迹 5 的 GT、K256、RVQ 叠加俯视动图"></article>
+<article class="route"><div><span class="tag">K256 占优</span><h3>轨迹 6 · GT 长度 13.5 m</h3><p>78 帧 · 终点误差 K256 0.21 m / RVQ 3.41 m</p><p>整轨 ADE：K256 0.19 m · RVQ 2.94 m</p><p class="muted">整轨 ADE 更低：K256；上方类别只按终点误差定义。</p><p>绘制路点：K256 78 个 · RVQ 78 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-06.gif" alt="轨迹 6 的 GT、K256、RVQ 叠加俯视动图"></article></section>
 <section><h2>多路点执行与轨迹流畅度</h2>
 <p>在同一批 8,600 条轨迹上，把 K256 每 0.5 秒动作、RVQ 每帧重新取 0.5 秒动作，以及 RVQ 一次最多执行 2 秒或 4 秒的路点序列，全部采样到同一个 2 Hz 时间网格。后两种模式在有效路点时间不足时提前重规划，实际平均每次分别执行 1.92 秒和 3.02 秒。</p>
 <div class="callout">多点轨迹自动更流畅的猜想在本次直接回放中没有得到支持：最多执行 2 秒时，RVQ 的平均速度 jerk 为 0.747 m/s³，K256 为 0.504；平均转向角加速度为 18.53 与 12.28 °/s²。较长的 RVQ 片段减少了它自身的开环终点漂移，但没有消除速度和转向变化。</div>

@@ -11,7 +11,15 @@
     "trajectories": 8600,
     "frames": 401872,
     "paired_full_routes": 8600,
+    "rvq_endpoint_wins": 182,
     "rvq_endpoint_win_fraction": 0.02116279069767442,
+    "endpoint_outcome_threshold_m": 0.2,
+    "endpoint_outcomes": {
+      "rvq_better": 57,
+      "close": 437,
+      "k256_better": 8106
+    },
+    "rvq_better_both_endpoint_and_ade": 30,
     "halfsecond_coverage": 1.0,
     "rvq_eligible": 0.9836291157383446,
     "object_projected": 0.24810387387028707,
