@@ -1,6 +1,7 @@
 {
   "method": "paired-reconstruction-v1",
   "seed": "hm3d-k256-rvq-paired-20261009-v1",
+  "generation_manifest_sha256": "e337c7871b16365df9839b6a595a16b79822faa1ccb7c916d23041e36424231b",
   "dataset_manifest_sha256": "4dab1062cd5331989e2dc4a9b90cc29ad5bc5dd01cdd25ecebbd7ce21344324b",
   "k256_codebook_sha256": "2b92e8d71ee24528d6d3e792a15a1b0694f7253b6758fd1fbb4d641e36880e47",
   "lightnav_manifest_sha256": "65ef266d49811b325cb23053d2c2b441760c5981b9d573ead1da325e2970859d",
@@ -10,11 +11,11 @@
     "trajectories": 8600,
     "frames": 401872,
     "paired_full_routes": 8600,
+    "rvq_endpoint_win_fraction": 0.02116279069767442,
     "halfsecond_coverage": 1.0,
     "rvq_eligible": 0.9836291157383446,
     "object_projected": 0.24810387387028707,
-    "affordance_projected": 0.4482322729625353,
-    "rvq_endpoint_win_fraction": 0.02116279069767442
+    "affordance_projected": 0.4482322729625353
   },
   "metrics": {
     "object_projected": {
@@ -58,6 +59,20 @@
       "median": 0.03698865883052349,
       "p95": 0.08432854712009427,
       "p99": 0.11143239624798287
+    },
+    "window_gt_travel_m": {
+      "n": 393272,
+      "mean": 1.3109262938814161,
+      "median": 1.4513746743898768,
+      "p95": 2.0598654398011673,
+      "p99": 2.2012693677967605
+    },
+    "window_horizon_s": {
+      "n": 393272,
+      "mean": 3.288506640016096,
+      "median": 3.5,
+      "p95": 5.0,
+      "p99": 5.0
     },
     "window_ade_k": {
       "n": 393272,
@@ -234,7 +249,6 @@
   },
   "scene_bootstrap_full_endpoint_rvq_minus_k256_m_95ci": [
     2.233228331251382,
-    2.5557377211050265
-  ],
-  "generation_manifest_sha256": "e337c7871b16365df9839b6a595a16b79822faa1ccb7c916d23041e36424231b"
+    2.555737721105026
+  ]
 }

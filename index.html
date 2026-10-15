@@ -36,14 +36,15 @@ thead th{background:#eef2f8;font-size:13px}.scroll{overflow-x:auto}.route{displa
 <tr><th>局部 10 路点 ADE</th><td>393,272</td><td>0.024</td><td>0.042</td><td>0.066</td><td>0.085</td><td>按 RVQ 实际时间戳；忽略终点填充</td></tr>
 <tr><th>5 秒段终点误差</th><td>35,401</td><td>0.058</td><td>0.353</td><td>0.159</td><td>1.010</td><td>每段从 GT 起点重置</td></tr>
 <tr><th>整条轨迹终点误差</th><td>8,600</td><td>0.315</td><td>2.713</td><td>0.901</td><td>7.454</td><td>仅两者可完整计算的相同轨迹</td></tr></tbody></table></div>
+<p><strong>局部 10 路点 ADE 的距离口径：</strong>在这 393,272 个有效窗口中，GT 从当前帧沿有效路点平均行进 1.31 m（中位数 1.45 m，P95 2.06 m）；平均覆盖 3.29 秒。距离按相邻 GT 路点的水平位移累加，包含当前帧到首个路点，忽略终点重复填充；它是行进路程，不是起终点直线距离。</p>
 <p class="muted">整条轨迹统计使用 8,600 条相同轨迹；0.5 秒 RVQ 路点可插值覆盖率 100.00%。方向角和进一步分层数据见 <a href="summary.json">机器可读结果</a>。</p></section>
 <section><h2>长度分层与 RVQ 层数</h2><div class="figure-grid"><figure><img src="assets/length-strata.png" alt="不同 GT 路径长度下的终点误差柱状图"><figcaption>同一配对样本按 GT 水平路径长度分层，柱为终点误差均值。</figcaption></figure>
 <figure><img src="assets/rvq-levels.png" alt="RVQ 三层前缀路点误差柱状图"><figcaption>RVQ 自身的 L0、L0+L1、L0+L1+L2 重建，展示残差层的作用。</figcaption></figure></div><p class="muted">路径长度分层样本数：&lt;10 m 为 5,229 条，10–25 m 为 3,284 条，≥25 m 为 87 条；长路径层样本较少。</p></section>
-<section><h2>同图俯视轨迹动图</h2><p>黑色为 GT，红色为 K256，蓝色为 RVQ；浅灰线给出完整 GT 路径，空心圆标出 GT 终点。三条轨迹从同一真实起点出发，使用相同世界坐标尺度。背景是坐标网格，不表示 NavMesh 墙体。</p><article class="route"><div><h3>轨迹 1</h3><p>GT 长度 8.1 m · 43 帧 · 终点误差 K256 0.24 m / RVQ 2.74 m</p></div><img loading="lazy" src="assets/route-01.gif" alt="轨迹 1 的 GT、K256、RVQ 叠加俯视动图"></article>
-<article class="route"><div><h3>轨迹 2</h3><p>GT 长度 27.3 m · 112 帧 · 终点误差 K256 0.29 m / RVQ 6.88 m</p></div><img loading="lazy" src="assets/route-02.gif" alt="轨迹 2 的 GT、K256、RVQ 叠加俯视动图"></article>
-<article class="route"><div><h3>轨迹 3</h3><p>GT 长度 21.8 m · 138 帧 · 终点误差 K256 1.06 m / RVQ 4.35 m</p></div><img loading="lazy" src="assets/route-03.gif" alt="轨迹 3 的 GT、K256、RVQ 叠加俯视动图"></article>
-<article class="route"><div><h3>轨迹 4</h3><p>GT 长度 11.6 m · 42 帧 · 终点误差 K256 0.73 m / RVQ 0.15 m</p></div><img loading="lazy" src="assets/route-04.gif" alt="轨迹 4 的 GT、K256、RVQ 叠加俯视动图"></article>
-<article class="route"><div><h3>轨迹 5</h3><p>GT 长度 26.1 m · 119 帧 · 终点误差 K256 0.61 m / RVQ 11.87 m</p></div><img loading="lazy" src="assets/route-05.gif" alt="轨迹 5 的 GT、K256、RVQ 叠加俯视动图"></article></section>
+<section><h2>同图俯视轨迹动图</h2><p>黑色为 GT，红色为 K256，蓝色为 RVQ；浅灰线给出完整 GT 路径，空心圆标出 GT 终点。三条轨迹从同一真实起点出发，使用相同世界坐标尺度。下方路点数指最终曲线上绘制的世界坐标点，含共同起点；K256 的 STOP 不增加路点。RVQ 每个非终止帧原有 10 个局部路点，本动图在 0.5 秒处插值得到一个移动点后逐帧积分，并未把每帧的 10 个点全部画进曲线。背景是坐标网格，不表示 NavMesh 墙体。</p><article class="route"><div><h3>轨迹 1</h3><p>GT 长度 8.1 m · 43 帧 · 终点误差 K256 0.24 m / RVQ 2.74 m</p><p>绘制路点：K256 43 个 · RVQ 43 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-01.gif" alt="轨迹 1 的 GT、K256、RVQ 叠加俯视动图"></article>
+<article class="route"><div><h3>轨迹 2</h3><p>GT 长度 27.3 m · 112 帧 · 终点误差 K256 0.29 m / RVQ 6.88 m</p><p>绘制路点：K256 112 个 · RVQ 112 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-02.gif" alt="轨迹 2 的 GT、K256、RVQ 叠加俯视动图"></article>
+<article class="route"><div><h3>轨迹 3</h3><p>GT 长度 21.8 m · 138 帧 · 终点误差 K256 1.06 m / RVQ 4.35 m</p><p>绘制路点：K256 138 个 · RVQ 138 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-03.gif" alt="轨迹 3 的 GT、K256、RVQ 叠加俯视动图"></article>
+<article class="route"><div><h3>轨迹 4</h3><p>GT 长度 11.6 m · 42 帧 · 终点误差 K256 0.73 m / RVQ 0.15 m</p><p>绘制路点：K256 42 个 · RVQ 42 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-04.gif" alt="轨迹 4 的 GT、K256、RVQ 叠加俯视动图"></article>
+<article class="route"><div><h3>轨迹 5</h3><p>GT 长度 26.1 m · 119 帧 · 终点误差 K256 0.61 m / RVQ 11.87 m</p><p>绘制路点：K256 119 个 · RVQ 119 个（各含共同起点）</p></div><img loading="lazy" src="assets/route-05.gif" alt="轨迹 5 的 GT、K256、RVQ 叠加俯视动图"></article></section>
 <section><h2>多路点执行与轨迹流畅度</h2>
 <p>在同一批 8,600 条轨迹上，把 K256 每 0.5 秒动作、RVQ 每帧重新取 0.5 秒动作，以及 RVQ 一次最多执行 2 秒或 4 秒的路点序列，全部采样到同一个 2 Hz 时间网格。后两种模式在有效路点时间不足时提前重规划，实际平均每次分别执行 1.92 秒和 3.02 秒。</p>
 <div class="callout">多点轨迹自动更流畅的猜想在本次直接回放中没有得到支持：最多执行 2 秒时，RVQ 的平均速度 jerk 为 0.747 m/s³，K256 为 0.504；平均转向角加速度为 18.53 与 12.28 °/s²。较长的 RVQ 片段减少了它自身的开环终点漂移，但没有消除速度和转向变化。</div>
