@@ -1,0 +1,20 @@
+{
+  "variant": "new_h5_abs_y1_beam",
+  "model_file": "research-models/new_h5_abs_y1.npz",
+  "model_sha256": "e93fee953278fa155e69bb3f78cf93a3135005e1a45a0170611ff0a8cb280b5a",
+  "horizon": 5,
+  "motion_tokens_per_decision": 3,
+  "levels": [
+    256,
+    256,
+    256
+  ],
+  "waypoint_dt_s": 0.5,
+  "replan_dt_s": 0.5,
+  "coordinate_frame": "current body: x forward metres, y left metres, CCW yaw radians",
+  "representation": "absolute local SE2 poses; three codewords sum in scaled feature space",
+  "execution": "execute the first waypoint for one 0.5-second control period and replan; other four rows are lookahead",
+  "terminal": "motion codec has no reserved STOP index; use an explicit goal-stop flag or Affordance STOP token, and halt before applying decoded motion",
+  "policy_requirement": "relabel targets and fine-tune/train the policy using this exact codebook; never substitute these assets into an unchanged official checkpoint",
+  "validated_scope": "offline quantization/reconstruction only; controller and visual policy untested"
+}

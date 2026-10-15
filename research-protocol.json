@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "seed": "hm3d-rvq-research-20261015-v1",
+  "generation_manifest_sha256": "e337c7871b16365df9839b6a595a16b79822faa1ccb7c916d23041e36424231b",
+  "private_split_sha256": "ba3eb3a5a0a240e45ef83d77c449af680668056f43736388aff6ec66b552f503",
+  "scene_split": {
+    "train": 64,
+    "validation": 12,
+    "test": 24
+  },
+  "historical_scenes_excluded": 60,
+  "training_window_limit_per_scene": 2048,
+  "primary_metric": "route-equal mean full-route endpoint error",
+  "selection": "validation only; freeze variants and model hashes before test evaluation",
+  "source_dt_s": 0.5,
+  "video_reads": false,
+  "scope": "offline quantization and trajectory reconstruction, no visual policy or robot controller",
+  "counts": {
+    "train": {
+      "scenes": 64,
+      "routes": 9260,
+      "steps": 455575,
+      "max_original_action_index": 3
+    },
+    "validation": {
+      "scenes": 12,
+      "routes": 1992,
+      "steps": 113486,
+      "max_original_action_index": 3
+    },
+    "test": {
+      "scenes": 24,
+      "routes": 3760,
+      "steps": 162502,
+      "max_original_action_index": 3
+    }
+  }
+}

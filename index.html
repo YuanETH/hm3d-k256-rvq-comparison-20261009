@@ -24,6 +24,7 @@ thead th{background:#eef2f8;font-size:13px}.scroll{overflow-x:auto}.route{displa
 <header><div class="inner"><div class="eyebrow">PAIRED ENCODING EVALUATION · 2026-10-09 · 更新 2026-10-15</div>
 <h1>HM3D K256 与 Pointing+RVQ</h1><p>同一批 GT 轨迹上的编码重建、开环漂移和俯视轨迹对照。两种编码按相同的 episode、帧和时间戳配对。</p>
 <span class="tag">离线量化评估</span><span class="tag">公开方法与结果</span></div></header><main>
+<section><h2>新增：RVQ 开环精度研究</h2><p>已完成 60 个编码变体，包括真正的 5 点 RVQ、固定时间采样、角度权重、编码搜索、残差层数与执行频率。新研究使用互斥的训练、验证、测试场景，并交付码本、解码器和分类动图。<a href="research.html"><strong>查看完整 RVQ 改进研究 →</strong></a></p><p class="muted">下方保留原发版编码在历史 60 场景样本上的对照；新研究页面使用另外的独立测试样本，数字按各自样本解释。</p></section>
 <div class="cards"><div class="card"><small>同源轨迹</small><strong>8,600</strong><small>60 个场景 · 401,872 帧</small></div>
 <div class="card"><small>整条轨迹终点误差均值</small><strong>0.32 / 2.71 m</strong><small>K256 / Pointing+RVQ</small></div>
 <div class="card"><small>RVQ 训练可用帧占比</small><strong>98.4%</strong><small>量化质量门槛；非模型成功率</small></div></div>

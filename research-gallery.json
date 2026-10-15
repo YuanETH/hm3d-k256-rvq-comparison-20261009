@@ -1,0 +1,88 @@
+{
+  "cases": [
+    {
+      "asset": "research-route-01.gif",
+      "category": "rvq_better",
+      "gt_length_m": 7.236624159050869,
+      "frames": 44,
+      "k256_endpoint_m": 0.37253482423439316,
+      "rvq_endpoint_m": 0.19927062658870945,
+      "k256_ade_m": 0.2128955261589782,
+      "rvq_ade_m": 0.08281037693715049,
+      "gt_waypoints": 44,
+      "k256_waypoints": 44,
+      "rvq_waypoints": 44
+    },
+    {
+      "asset": "research-route-02.gif",
+      "category": "rvq_better",
+      "gt_length_m": 11.411202455069036,
+      "frames": 71,
+      "k256_endpoint_m": 0.4544610035249624,
+      "rvq_endpoint_m": 0.13246424354082278,
+      "k256_ade_m": 0.1680149388645968,
+      "rvq_ade_m": 0.06457782486138251,
+      "gt_waypoints": 71,
+      "k256_waypoints": 71,
+      "rvq_waypoints": 71
+    },
+    {
+      "asset": "research-route-03.gif",
+      "category": "close",
+      "gt_length_m": 7.604614155119038,
+      "frames": 36,
+      "k256_endpoint_m": 0.09083355280009212,
+      "rvq_endpoint_m": 0.08349356005482256,
+      "k256_ade_m": 0.06073607537923695,
+      "rvq_ade_m": 0.059138085120671646,
+      "gt_waypoints": 36,
+      "k256_waypoints": 36,
+      "rvq_waypoints": 36
+    },
+    {
+      "asset": "research-route-04.gif",
+      "category": "close",
+      "gt_length_m": 11.435086722413157,
+      "frames": 56,
+      "k256_endpoint_m": 0.14021537374883375,
+      "rvq_endpoint_m": 0.14013076833997784,
+      "k256_ade_m": 0.06817587226202537,
+      "rvq_ade_m": 0.08470271968491716,
+      "gt_waypoints": 56,
+      "k256_waypoints": 56,
+      "rvq_waypoints": 56
+    },
+    {
+      "asset": "research-route-05.gif",
+      "category": "k256_better",
+      "gt_length_m": 5.00391308826641,
+      "frames": 31,
+      "k256_endpoint_m": 0.02571721150830999,
+      "rvq_endpoint_m": 0.12744627597139294,
+      "k256_ade_m": 0.020427103671301582,
+      "rvq_ade_m": 0.0702319172021876,
+      "gt_waypoints": 31,
+      "k256_waypoints": 31,
+      "rvq_waypoints": 31
+    },
+    {
+      "asset": "research-route-06.gif",
+      "category": "k256_better",
+      "gt_length_m": 15.106424678406727,
+      "frames": 56,
+      "k256_endpoint_m": 0.3270447982550582,
+      "rvq_endpoint_m": 0.46366022112158667,
+      "k256_ade_m": 0.185464379514664,
+      "rvq_ade_m": 0.21449705197100338,
+      "gt_waypoints": 56,
+      "k256_waypoints": 56,
+      "rvq_waypoints": 56
+    }
+  ],
+  "endpoint_gap_threshold_m": 0.05,
+  "counts": {
+    "rvq_better": 2289,
+    "close": 956,
+    "k256_better": 515
+  }
+}
