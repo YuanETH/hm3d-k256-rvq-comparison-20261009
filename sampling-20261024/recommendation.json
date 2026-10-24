@@ -27,6 +27,7 @@
   "new_timing_and_controller_contract_required": true,
   "image_history_retained": true,
   "ineligible_motion_windows_are_unresolved_not_STOP": true,
+  "runtime_micro_goal_guard_required_but_not_implemented": "Check decoded predicted goals; merge only along a feasible path or replan; a tiny goal does not imply task STOP",
   "stop_contract": "Affordance STOP iff complete RVQ 000 iff final frame; no object-visibility loss mask",
   "new_codebooks_fitted": 22,
   "visual_policy_trained": false,
