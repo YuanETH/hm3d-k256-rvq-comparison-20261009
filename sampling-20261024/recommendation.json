@@ -2,7 +2,7 @@
   "schema": "rvq-sampling-recommendation/2",
   "date": "2026-10-24",
   "status": "research_candidate_not_production_release",
-  "selected_sampling": "pose_adaptive20",
+  "selected_sampling": "pose_adaptive20_relaxed",
   "nominal_progress": {
     "translation_m": 0.2,
     "yaw_deg": 15
@@ -12,13 +12,14 @@
     "yaw_deg": 10
   },
   "geometry_budget": {
-    "xy_m": 0.01,
-    "yaw_deg": 2
-  },
-  "optional_relaxed_budget_requires_clearance_validation": {
     "xy_m": 0.03,
     "yaw_deg": 3
   },
+  "stricter_geometry_comparison": {
+    "xy_m": 0.01,
+    "yaw_deg": 2
+  },
+  "clearance_validation_required_for_both_budgets": true,
   "horizon": 5,
   "representation": "absolute local poses sharing original image-time origin",
   "codebook_levels": 3,
@@ -34,27 +35,27 @@
   "collision_checked": false,
   "robot_tested": false,
   "production_data_modified": false,
-  "probe_route_fde_m_two_seed_mean": 0.21969254010735453,
-  "probe_decoded_route_micro5_rate": 0.002832512315270936,
-  "probe_eligible_dense_windows_all_valid_GT_steps_exceed_10cm_or_10deg": 13671,
+  "probe_route_fde_m_two_seed_mean": 0.20299192346279657,
+  "probe_decoded_route_micro5_rate": 0.0010819499829979287,
+  "probe_eligible_dense_windows_all_valid_GT_steps_exceed_10cm_or_10deg": 14014,
   "probe_original_motion_image_anchors": 14916,
   "probe_eligible_decoded_micro5_windows_by_seed": {
     "20261024": {
       "status": "ok",
       "splits": {
         "eval": {
-          "eligible_gt_windows_no_any_10cm_10deg": 13384,
-          "eligible_fraction_of_image_anchors": 0.9160221750735748,
+          "eligible_gt_windows_no_any_10cm_10deg": 13753,
+          "eligible_fraction_of_image_anchors": 0.9412771199780987,
+          "decoded_first_target_joint_le_5cm_5deg_count": 1,
+          "decoded_any_valid_adjacent_target_joint_le_5cm_5deg_count": 2,
+          "decoded_micro_label_count_fraction": 0.00014542281683996218
+        },
+        "probe": {
+          "eligible_gt_windows_no_any_10cm_10deg": 14014,
+          "eligible_fraction_of_image_anchors": 0.93952802359882,
           "decoded_first_target_joint_le_5cm_5deg_count": 0,
           "decoded_any_valid_adjacent_target_joint_le_5cm_5deg_count": 0,
           "decoded_micro_label_count_fraction": 0.0
-        },
-        "probe": {
-          "eligible_gt_windows_no_any_10cm_10deg": 13671,
-          "eligible_fraction_of_image_anchors": 0.916532582461786,
-          "decoded_first_target_joint_le_5cm_5deg_count": 0,
-          "decoded_any_valid_adjacent_target_joint_le_5cm_5deg_count": 2,
-          "decoded_micro_label_count_fraction": 0.0001462950771706532
         }
       }
     },
@@ -62,20 +63,40 @@
       "status": "ok",
       "splits": {
         "eval": {
-          "eligible_gt_windows_no_any_10cm_10deg": 13384,
-          "eligible_fraction_of_image_anchors": 0.9160221750735748,
+          "eligible_gt_windows_no_any_10cm_10deg": 13753,
+          "eligible_fraction_of_image_anchors": 0.9412771199780987,
           "decoded_first_target_joint_le_5cm_5deg_count": 0,
           "decoded_any_valid_adjacent_target_joint_le_5cm_5deg_count": 0,
           "decoded_micro_label_count_fraction": 0.0
         },
         "probe": {
-          "eligible_gt_windows_no_any_10cm_10deg": 13671,
-          "eligible_fraction_of_image_anchors": 0.916532582461786,
+          "eligible_gt_windows_no_any_10cm_10deg": 14014,
+          "eligible_fraction_of_image_anchors": 0.93952802359882,
           "decoded_first_target_joint_le_5cm_5deg_count": 0,
           "decoded_any_valid_adjacent_target_joint_le_5cm_5deg_count": 1,
-          "decoded_micro_label_count_fraction": 7.31475385853266e-05
+          "decoded_micro_label_count_fraction": 7.135721421435707e-05
         }
       }
+    }
+  },
+  "probe_residual_route_micro5": {
+    "20261024": {
+      "routes": 245,
+      "affected_routes": 28,
+      "micro_commands": 35,
+      "start_10pct_recorded_time": 27,
+      "middle_80pct_recorded_time": 0,
+      "end_10pct_recorded_time": 8,
+      "last_edge": 7
+    },
+    "20261025": {
+      "routes": 245,
+      "affected_routes": 28,
+      "micro_commands": 35,
+      "start_10pct_recorded_time": 27,
+      "middle_80pct_recorded_time": 0,
+      "end_10pct_recorded_time": 8,
+      "last_edge": 7
     }
   },
   "deployment_threshold_hardware_calibrated": false
