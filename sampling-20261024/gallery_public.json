@@ -1,0 +1,71 @@
+[
+  {
+    "file": "typical.gif",
+    "selection": "改善示例：在改善路线中，选择误差降幅最接近中位数的一条",
+    "anonymized_route": "d22466080f2e",
+    "gt_waypoints": 31,
+    "methods": {
+      "time05": {
+        "waypoints_including_start": 31,
+        "fde_cm": 22.165674782094158,
+        "sampling_max_joint_projection_yaw_deg": 0.0
+      },
+      "pose20_15": {
+        "waypoints_including_start": 75,
+        "fde_cm": 6.7741300468320125,
+        "sampling_max_joint_projection_yaw_deg": 2.6514945383923116
+      },
+      "pose_adaptive20": {
+        "waypoints_including_start": 82,
+        "fde_cm": 6.360558784865847,
+        "sampling_max_joint_projection_yaw_deg": 0.047639866348947596
+      }
+    }
+  },
+  {
+    "file": "worse.gif",
+    "selection": "反例：推荐方案比时间方案增加终点误差最多的一条",
+    "anonymized_route": "9a194fbc42c6",
+    "gt_waypoints": 135,
+    "methods": {
+      "time05": {
+        "waypoints_including_start": 135,
+        "fde_cm": 73.01210161680312,
+        "sampling_max_joint_projection_yaw_deg": 0.0
+      },
+      "pose20_15": {
+        "waypoints_including_start": 293,
+        "fde_cm": 26.631232088541594,
+        "sampling_max_joint_projection_yaw_deg": 4.553537563742477
+      },
+      "pose_adaptive20": {
+        "waypoints_including_start": 315,
+        "fde_cm": 163.1642154588632,
+        "sampling_max_joint_projection_yaw_deg": 1.4817799258625917
+      }
+    }
+  },
+  {
+    "file": "turn.gif",
+    "selection": "旋转失真示例：纯距离采样的朝向重建偏差最大的一条",
+    "anonymized_route": "97e522321007",
+    "gt_waypoints": 41,
+    "methods": {
+      "arc20": {
+        "waypoints_including_start": 69,
+        "fde_cm": 6.778299373626162,
+        "sampling_max_joint_projection_yaw_deg": 22.829220935737474
+      },
+      "pose20_15": {
+        "waypoints_including_start": 73,
+        "fde_cm": 7.959917872134008,
+        "sampling_max_joint_projection_yaw_deg": 6.700988816567037
+      },
+      "pose_adaptive20": {
+        "waypoints_including_start": 85,
+        "fde_cm": 42.44224284450038,
+        "sampling_max_joint_projection_yaw_deg": 0.007097976975332629
+      }
+    }
+  }
+]

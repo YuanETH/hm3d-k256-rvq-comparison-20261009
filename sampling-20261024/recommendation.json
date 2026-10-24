@@ -1,0 +1,81 @@
+{
+  "schema": "rvq-sampling-recommendation/2",
+  "date": "2026-10-24",
+  "status": "research_candidate_not_production_release",
+  "selected_sampling": "pose_adaptive20",
+  "nominal_progress": {
+    "translation_m": 0.2,
+    "yaw_deg": 15
+  },
+  "minimum_independent_progress_candidate": {
+    "translation_m": 0.1,
+    "yaw_deg": 10
+  },
+  "geometry_budget": {
+    "xy_m": 0.01,
+    "yaw_deg": 2
+  },
+  "optional_relaxed_budget_requires_clearance_validation": {
+    "xy_m": 0.03,
+    "yaw_deg": 3
+  },
+  "horizon": 5,
+  "representation": "absolute local poses sharing original image-time origin",
+  "codebook_levels": 3,
+  "codebook_size": 256,
+  "encoder": "beam8 + greedy safeguard, ADE +0.3 mean yaw +first yaw; reserve complete 000 for STOP",
+  "new_timing_and_controller_contract_required": true,
+  "image_history_retained": true,
+  "ineligible_motion_windows_are_unresolved_not_STOP": true,
+  "stop_contract": "Affordance STOP iff complete RVQ 000 iff final frame; no object-visibility loss mask",
+  "new_codebooks_fitted": 22,
+  "visual_policy_trained": false,
+  "collision_checked": false,
+  "robot_tested": false,
+  "production_data_modified": false,
+  "probe_route_fde_m_two_seed_mean": 0.21969254010735453,
+  "probe_decoded_route_micro5_rate": 0.002832512315270936,
+  "probe_eligible_dense_windows_all_valid_GT_steps_exceed_10cm_or_10deg": 13671,
+  "probe_original_motion_image_anchors": 14916,
+  "probe_eligible_decoded_micro5_windows_by_seed": {
+    "20261024": {
+      "status": "ok",
+      "splits": {
+        "eval": {
+          "eligible_gt_windows_no_any_10cm_10deg": 13384,
+          "eligible_fraction_of_image_anchors": 0.9160221750735748,
+          "decoded_first_target_joint_le_5cm_5deg_count": 0,
+          "decoded_any_valid_adjacent_target_joint_le_5cm_5deg_count": 0,
+          "decoded_micro_label_count_fraction": 0.0
+        },
+        "probe": {
+          "eligible_gt_windows_no_any_10cm_10deg": 13671,
+          "eligible_fraction_of_image_anchors": 0.916532582461786,
+          "decoded_first_target_joint_le_5cm_5deg_count": 0,
+          "decoded_any_valid_adjacent_target_joint_le_5cm_5deg_count": 2,
+          "decoded_micro_label_count_fraction": 0.0001462950771706532
+        }
+      }
+    },
+    "20261025": {
+      "status": "ok",
+      "splits": {
+        "eval": {
+          "eligible_gt_windows_no_any_10cm_10deg": 13384,
+          "eligible_fraction_of_image_anchors": 0.9160221750735748,
+          "decoded_first_target_joint_le_5cm_5deg_count": 0,
+          "decoded_any_valid_adjacent_target_joint_le_5cm_5deg_count": 0,
+          "decoded_micro_label_count_fraction": 0.0
+        },
+        "probe": {
+          "eligible_gt_windows_no_any_10cm_10deg": 13671,
+          "eligible_fraction_of_image_anchors": 0.916532582461786,
+          "decoded_first_target_joint_le_5cm_5deg_count": 0,
+          "decoded_any_valid_adjacent_target_joint_le_5cm_5deg_count": 1,
+          "decoded_micro_label_count_fraction": 7.31475385853266e-05
+        }
+      }
+    }
+  },
+  "deployment_threshold_hardware_calibrated": false
+}

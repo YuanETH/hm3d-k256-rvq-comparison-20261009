@@ -22,10 +22,11 @@ thead th{background:#eef2f8;font-size:13px}.scroll{overflow-x:auto}.route{displa
 @media(max-width:760px){.cards,.figure-grid,.route{grid-template-columns:1fr}section{padding:18px}}
 button{font:inherit;padding:8px 12px;background:#edf6fc;color:#164d70;border:1px solid #b9cddd;border-radius:7px;cursor:pointer}
 </style></head><body>
-<header><div class="inner"><div class="eyebrow">PAIRED ENCODING EVALUATION · 2026-10-09 · 更新 2026-10-15</div>
-<h1>HM3D 编码评估报告</h1><p>这里包含原发版 K256 / RVQ 对照，以及进一步改善 RVQ 精度的研究。建议先读最新的五分钟研究，再按需查看下方原发版诊断。</p>
+<header><div class="inner"><div class="eyebrow">PAIRED ENCODING EVALUATION · 2026-10-09 · 更新 2026-10-24</div>
+<h1>HM3D 编码评估报告</h1><p>这里包含原发版编码对照、2026-10-15 的 HM3D 量化研究，以及 2026-10-24 针对双足机器人微动作问题的深圳采样研究。请先按当前执行需求阅读最新结论。</p>
 <span class="tag">离线量化评估</span><span class="tag">公开方法与结果</span></div></header><main>
-<section><h2>先看最新结论：RVQ 的开环误差可以明显降低</h2><div class="callout">在新研究的同一批 3,760 条轨迹上，原发版 RVQ 的整轨终点偏差为 2.67 米，K256 为 31.6 厘米，预选新 5 点 RVQ 为 <strong>15.5 厘米</strong>。</div><p><a href="research.html" style="display:inline-block;background:#146f59;color:white;padding:12px 20px;border-radius:9px;text-decoration:none"><strong>五分钟看懂最新 RVQ 研究 →</strong></a></p><p>按“结论 → 怎么测 → 5点与10点 → 角度 → 执行方式 → 三类轨迹”的顺序阅读。60 个编码变体、16 份码本与完整审计可按需展开。</p><p class="muted"><strong>下方是历史原发版对照：</strong>8,600 条轨迹 / 60 场景；最新研究另用 3,760 条轨迹 / 24 测试场景。两页使用不同样本，不能跨页相减。</p></section>
+<section><h2>2026-10-24：减少微动作，应该继续用等时间 H5 吗？</h2><div class="callout"><strong>当前推荐：近等位姿进展＋路径与转向保形约束。</strong>11 种采样方案、22 个新码本的比较显示，空间目标更符合减少微动作的需求。推荐方案的整轨终点误差比 0.5 秒方案下降约 40%；训练窗口、前瞻距离与执行方式仍有明确取舍。</div><p><a href="sampling-20261024/" style="display:inline-block;background:#146f59;color:white;padding:12px 20px;border-radius:9px;text-decoration:none"><strong>查看最新方案比较、取舍与轨迹反例 →</strong></a></p><p class="muted">深圳办公室的离线研究；未运行视觉策略或真机。下方 HM3D 结果来自不同数据，不能直接跨页比较数字。</p></section>
+<section><h2>2026-10-15 历史研究：降低 RVQ 量化开环误差</h2><div class="callout">在该次研究的同一批 3,760 条轨迹上，原发版 RVQ 的整轨终点偏差为 2.67 米，K256 为 31.6 厘米，预选新 5 点 RVQ 为 <strong>15.5 厘米</strong>。</div><p><a href="research.html" style="display:inline-block;background:#146f59;color:white;padding:12px 20px;border-radius:9px;text-decoration:none"><strong>查看 10 月 15 日 HM3D 研究 →</strong></a></p><p>按“结论 → 怎么测 → 5点与10点 → 角度 → 执行方式 → 三类轨迹”的顺序阅读。60 个编码变体、16 份码本与完整审计可按需展开。</p><p class="muted"><strong>下方是历史原发版对照：</strong>8,600 条轨迹 / 60 场景；10 月 15 日研究另用 3,760 条轨迹 / 24 测试场景。两页使用不同样本，不能跨页相减。</p></section>
 <div class="cards"><div class="card"><small>同源轨迹</small><strong>8,600</strong><small>60 个场景 · 401,872 帧</small></div>
 <div class="card"><small>整条轨迹终点误差均值</small><strong>0.32 / 2.71 m</strong><small>K256 / Pointing+RVQ</small></div>
 <div class="card"><small>RVQ 训练可用帧占比</small><strong>98.4%</strong><small>量化质量门槛；非模型成功率</small></div></div>
